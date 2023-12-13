@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,6 +21,17 @@ class ReviewFactory extends Factory
             'comment'  => fake()->paragraph(7, true),
             'rating' => random_int(1,5),
         ];
+    }
+
+    public function initializeDates(Book $book) {
+        return $this->state(function (array $attributes) use ($book){
+            $bookCreationDate = $book->created_at;
+            $reviewCreationDate = fake()->dateTimeBetween($bookCreationDate, 'now');
+            return [
+                'created_at' => $reviewCreationDate,
+                'updated_at' => fake()->dateTimeBetween($reviewCreationDate, 'now'),
+            ];
+        });
     }
 
     public function good(){

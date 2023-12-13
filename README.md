@@ -57,7 +57,7 @@ Follow these steps to set up the Book Reviewer Laravel project locally:
    - Express your opinion by assigning ratings to books.
 
 5. **Get Recommendations:**
-   - Receive personalized book recommendations based on high ratings or popularity.
+   - Receive book recommendations based on high ratings or popularity.
 
 ## License
 
