@@ -12,7 +12,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+        $books = Book::paginate(10);
 
         return view('books.index', ['books'=> $books]);
     }
@@ -22,7 +22,7 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
@@ -30,7 +30,15 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'isbn' => 'required|alpha_num|unique:books,isbn',
+            'title' => 'required|unique:books,title',
+            'author' => 'required',
+        ]);
+
+        $book = Book::create($data);
+
+        return redirect()->route('books.show', ['book' => $book])->with('success','Book Added Successfully!');
     }
 
     /**

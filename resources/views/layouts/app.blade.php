@@ -34,6 +34,26 @@
         .book-author {
             @apply text-sm font-light text-gray-700
         }
+
+        .form-label {
+            @apply text-lg font-bold text-slate-700
+        }
+
+        .form-input {
+            @apply border border-slate-300 active:border-slate-700 p-2 rounded-lg
+        }
+
+        .error-message {
+            @apply text-red-700 text-sm
+        }
+
+        .primary-btn {
+            @apply px-4 py-2 bg-slate-600 text-lg font-bold capitalize text-white rounded-lg hover:bg-slate-800 transition-all
+        }
+
+        .secondary-btn {
+            @apply px-4 py-2 bg-slate-200 text-lg font-normal capitalize text-slate-800 rounded-lg
+        }
     </style>
 </head>
 
