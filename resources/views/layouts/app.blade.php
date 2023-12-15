@@ -16,7 +16,7 @@
         }
 
         .page-title {
-            @apply text-2xl font-bold mb-5
+            @apply text-4xl font-bold mb-5
         }
 
         .book-card {

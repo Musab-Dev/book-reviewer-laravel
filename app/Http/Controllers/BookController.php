@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class BookController extends Controller
 {
@@ -46,9 +48,12 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        $reviews = $book->reviews;
-        
-        return view('books.show', ['book'=> $book,  'reviews' => $reviews]);
+        // $reviews = Book::findOrFail($book->id)->with(['reviews' => function (Builder $query) {
+        //     $query->orderBy('created_at', 'desc');
+        // }])->reviews;
+        $reviews = Review::where('book_id', $book->id)->orderBy('created_at','desc')->paginate(10);
+        $avg_rating = $reviews->avg('rating');
+        return view('books.show', ['book'=> $book,  'reviews' => $reviews, 'avg_rating' => $avg_rating]);
     }
 
     /**
