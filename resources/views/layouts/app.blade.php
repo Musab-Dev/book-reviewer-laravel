@@ -54,6 +54,18 @@
         .secondary-btn {
             @apply px-4 py-2 bg-slate-200 text-lg font-normal capitalize text-slate-800 rounded-lg
         }
+
+        .filter {}
+
+        .filter-item {
+            max-width: 15%;
+            @apply text-center mx-6 my-2 text-slate-400 font-semibold p-4
+        }
+
+        .filter-item-active {
+            max-width: 15%;
+            @apply text-center mx-6 my-2 text-slate-700 font-semibold bg-white rounded p-4
+        }
     </style>
 </head>
 
