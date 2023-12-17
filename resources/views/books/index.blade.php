@@ -8,6 +8,15 @@
 
 @section('content')
 
+    <form method="GET" action="{{ route('books.index') }}" class="mb-6">
+        <div class="flex flex-row gap-2 justify-stretch">
+            <input type="text" class="form-input flex-grow" name="title" placeholder="search by book title..."
+                value="{{ request('title') }}" required />
+            <button type="submit" class="primary-btn">Filter</button>
+            <a class="secondary-btn" href="{{ route('books.index') }}">Clear</a>
+        </div>
+    </form>
+
     @forelse ($books as $book)
         <a href="{{ route('books.show', ['book' => $book]) }}">
             <div class="relative book-card flex">

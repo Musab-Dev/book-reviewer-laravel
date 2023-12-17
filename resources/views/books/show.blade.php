@@ -38,7 +38,7 @@
         @forelse ($reviews as $review)
             <div>
                 <div class="mt-3 flex justify-end">
-                    <p class="mr-2">{{ $review->rating }} stars</p>
+                    <p class="mr-2">{{ $review->rating }} {{ Str::plural('star', $review->rating) }}</p>
                     •
                     <p class="ml-2 book-isbn">posted {{ $review->created_at->diffForHumans() }}</p>
                 </div>
