@@ -52,9 +52,9 @@
                         <p class="book-author">{{ $book->author }}</p>
                     </div>
                 </div>
-                <div class="absolute right-5 flex flex-col">
+                <div class="absolute right-5 flex flex-col text-center">
                     <div>
-                        {{ round($book->reviews_avg_rating, 2) }}
+                        <x-star-rating :rating="round($book->reviews_avg_rating, 2)" />
                     </div>
                     <div>
                         out of {{ $book->reviews_count }} {{ Str::plural('review', $book->reviews_count) }}

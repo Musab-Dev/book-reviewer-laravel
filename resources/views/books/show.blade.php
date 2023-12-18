@@ -24,7 +24,7 @@
         </div>
         <div class="flex flex-row mt-2">
             <div class="mr-5 self-center">
-                <p class="font-bold text-xl">{{ round($avg_rating, 2) }}</p>
+                <x-star-rating :rating="round($avg_rating, 2)" />
             </div>
             <div class="flex flex-col">
                 <div>{{ Str::plural('star', $avg_rating) }}</div>
@@ -43,7 +43,10 @@
         @forelse ($reviews as $review)
             <div>
                 <div class="mt-3 flex justify-end">
-                    <p class="mr-2">{{ $review->rating }} {{ Str::plural('star', $review->rating) }}</p>
+                    <p>
+                        <x-star-rating :rating="round($review->rating, 2)" /> <span
+                            class="mr-2">{{ Str::plural('star', $review->rating) }}</span>
+                    </p>
                     •
                     <p class="ml-2 book-isbn">posted {{ $review->created_at->diffForHumans() }}</p>
                 </div>
