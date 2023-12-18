@@ -27,13 +27,18 @@
                 <p class="font-bold text-xl">{{ round($avg_rating, 2) }}</p>
             </div>
             <div class="flex flex-col">
-                <div>stars</div>
-                <div>Based on <strong>{{ count($reviews) }}</strong> ratings</div>
+                <div>{{ Str::plural('star', $avg_rating) }}</div>
+                <div>Based on <strong>{{ count($book->reviews) }}</strong>
+                    {{ Str::plural('rating', count($book->reviews)) }}
+                </div>
             </div>
         </div>
     </div>
 
     <div class="max-h-min mt-4">
+        <div>
+            <p class="font-semibold text-2xl mb-4">Reviews</p>
+        </div>
         <hr>
         @forelse ($reviews as $review)
             <div>
@@ -48,7 +53,7 @@
             </div>
             <hr>
         @empty
-            <p>There are no reviews for this book. Let's add one!</p>
+            <p class="my-3">There are no reviews for this book. Let's add one!</p>
         @endforelse
         <hr class="mb-10">
     </div>

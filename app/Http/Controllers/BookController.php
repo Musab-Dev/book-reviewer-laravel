@@ -64,9 +64,9 @@ class BookController extends Controller
         // $reviews = Book::findOrFail($book->id)->with(['reviews' => function (Builder $query) {
         //     $query->orderBy('created_at', 'desc');
         // }])->reviews;
-        $reviews = Review::where('book_id', $book->id)->orderBy('created_at','desc')->paginate(10);
+        $reviews = Review::where('book_id', $book->id)->orderBy('created_at','desc');
         $avg_rating = $reviews->avg('rating');
-        return view('books.show', ['book'=> $book,  'reviews' => $reviews, 'avg_rating' => $avg_rating]);
+        return view('books.show', ['book'=> $book,  'reviews' => $reviews->paginate(10), 'avg_rating' => $avg_rating]);
     }
 
     /**
