@@ -18,6 +18,20 @@
         </div>
     </div>
 
+    <div class="my-10 flex">
+        <a href="{{ route('books.edit', ['book' => $book]) }}" class="primary-btn mr-4">
+            Edit Book Info
+        </a>
+        <form method="post" action="{{ route('books.destroy', ['book' => $book]) }}">
+            @csrf
+            @method('delete')
+            <button type="submit" class="danger-btn">
+                Delete Book
+            </button>
+        </form>
+
+    </div>
+
     <div class="mt-4 flex flex-col bg-gray-100 py-2 px-4 rounded-lg">
         <div>
             <p class="font-semibold text-2xl">📖 Book Reviews</p>

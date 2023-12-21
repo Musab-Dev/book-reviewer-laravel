@@ -55,6 +55,10 @@
             @apply px-4 py-2 bg-slate-200 text-lg font-normal capitalize text-slate-800 rounded-lg
         }
 
+        .danger-btn {
+            @apply px-4 py-2 bg-red-600 text-lg font-normal capitalize text-white rounded-lg
+        }
+
         .filter {}
 
         .filter-item {
