@@ -1,10 +1,22 @@
 @extends('layouts.app')
 
+@php
+    if (request('filter') == 'latest' || request('filter') == null) {
+        $pageTitle = 'Latest Books';
+    } elseif (request('filter') == 'popular_last_month' || request('filter') == 'popular_last_6_months') {
+        $pageTitle = 'Popular Books';
+    } elseif (request('filter') == 'highest_rated_last_month' || request('filter') == 'highest_rated_last_6_months') {
+        $pageTitle = 'Highest Rated Books';
+    } else {
+        $pageTitle = 'All Books';
+    }
+@endphp
+
 @section('page-actions')
     <a class="page-action-link" href="{{ route('books.create') }}">+ Add New Book</a>
 @endsection
 
-@section('title', 'All Books!')
+@section('title', 'All Books')
 
 @section('content')
 
@@ -18,7 +30,7 @@
         </div>
     </form>
 
-    <div class="bg-gray-100 flex mb-4 items-center place-content-between">
+    <div class="filter">
         @php
             $filters = [
                 'latest' => 'Latest Books',

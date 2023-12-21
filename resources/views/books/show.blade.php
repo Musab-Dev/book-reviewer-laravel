@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
+@php
+    $pageTitle = 'Book Details';
+@endphp
+
 @section('page-actions')
     <a class="page-action-link" href="{{ route('books.index') }}">← Back</a>
-
 @endsection
 
 @section('title', $book->title)
@@ -29,7 +32,6 @@
                 Delete Book
             </button>
         </form>
-
     </div>
 
     <div class="mt-4 flex flex-col bg-gray-100 py-2 px-4 rounded-lg">

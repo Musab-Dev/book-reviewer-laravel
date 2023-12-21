@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Book Reviewer | {{ $pageTitle }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style type="text/tailwindcss">
@@ -59,7 +59,9 @@
             @apply px-4 py-2 bg-red-600 text-lg font-normal capitalize text-white rounded-lg
         }
 
-        .filter {}
+        .filter {
+            @apply bg-gray-100 flex mb-4 rounded-lg items-center place-content-between
+        }
 
         .filter-item {
             max-width: 15%;
