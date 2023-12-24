@@ -29,7 +29,10 @@ class BookController extends Controller
             default => $books->withCount('reviews')->withAvg('reviews', 'rating')->latest(),
         };
         
-        return view('books.index', ['books'=> $books->paginate(10)]);
+        $cacheKey = 'books_' . $title . '_' . $filter;
+        $books = cache()->remember($cacheKey, 3600, fn() => $books->paginate(10));
+
+        return view('books.index', ['books'=> $books]);
     }
 
     /**
@@ -66,6 +69,7 @@ class BookController extends Controller
         // }])->reviews;
         $reviews = Review::where('book_id', $book->id)->orderBy('created_at','desc');
         $avg_rating = $reviews->avg('rating');
+
         return view('books.show', ['book'=> $book,  'reviews' => $reviews->paginate(10), 'avg_rating' => $avg_rating]);
     }
 

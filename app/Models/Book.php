@@ -16,6 +16,12 @@ class Book extends Model
     public function reviews(){
         return $this->hasMany(Review::class);
     }
+    /* Model Events: for controlling cache */
+    protected static function booted() {
+        static::created(function(Book $book) {cache()->forget('books__latest');cache()->forget('books__');});
+        static::updated(function(Book $book) {cache()->forget('books__latest');cache()->forget('books__');});
+        static::deleted(function(Book $book) {cache()->forget('books__latest');cache()->forget('books__');});
+    }
 
     /* Query Scopes */
     public function scopeTitle(Builder $query, string $title) : Builder {
@@ -87,5 +93,6 @@ class Book extends Model
         ->popular(now()->subMonths(6), now())
         ->having('reviews_count', '>=', 5);
     }
+
 
 }
