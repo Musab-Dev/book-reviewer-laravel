@@ -80,5 +80,7 @@
     <div class="mb-20">
         {{ $reviews->links() }}
     </div>
-    <a class="primary-btn fixed bottom-5 right-5">+ Add Review For this Book</a>
+    <a class="primary-btn fixed bottom-5 right-5" href="{{ route('books.reviews.create', ['book' => $book]) }}">
+        + Add Review For this Book
+    </a>
 @endsection
