@@ -58,13 +58,26 @@
         <hr>
         @forelse ($reviews as $review)
             <div>
-                <div class="mt-3 flex justify-end">
-                    <p>
-                        <x-star-rating :rating="round($review->rating, 2)" /> <span
-                            class="mr-2">{{ Str::plural('star', $review->rating) }}</span>
-                    </p>
-                    •
-                    <p class="ml-2 book-isbn">posted {{ $review->created_at->diffForHumans() }}</p>
+                <div class="mt-3 flex justify-between">
+                    <div class="flex">
+                        <p>
+                            <x-star-rating :rating="round($review->rating, 2)" />
+                            <span class="mr-2">{{ Str::plural('star', $review->rating) }}</span>
+                        </p>
+                        •
+                        <p class="ml-2 book-isbn">posted {{ $review->created_at->diffForHumans() }}</p>
+                    </div>
+                    <div class="flex gap-x-4">
+                        <a href="{{ route('books.reviews.edit', compact('book', 'review')) }}" class="text-slate-700">
+                            Edit
+                        </a>
+                        <form method="post" action="{{ route('books.reviews.destroy', compact('book', 'review')) }}">
+                            @csrf
+                            @method('delete')
+                            <button type="submit" class="text-red-700">Delete</button>
+                        </form>
+                    </div>
+
                 </div>
                 <div>
                     <p class="my-2">{{ $review->comment }}</p>

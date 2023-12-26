@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Review;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -49,24 +50,32 @@ class ReviewController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Book $book, Review $review)
     {
-        //
+        return view('books.reviews.edit', compact('book', 'review'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Book $book, Review $review)
     {
-        //
+        $data = $request->validate([
+            'comment' => 'required',
+            'rating' => 'required|min:1|max:5|integer',
+        ]);
+
+        $review->update($data);
+        return redirect()->route('books.show', compact('book'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Book $book, Review $review)
     {
-        //
+        // $review->delete();
+        Review::destroy($review->id);
+        return redirect()->route('books.show', compact('book'));
     }
 }
