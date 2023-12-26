@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 
 class ReviewController extends Controller
 {
@@ -29,14 +30,26 @@ class ReviewController extends Controller
      */
     public function store(Request $request, Book $book)
     {
-        $data = $request->validate([
-            'comment' => 'required',
-            'rating' => 'required|min:1|max:5|integer',
-        ]);
-
-        $book->reviews()->create($data);
-
-        return redirect()->route('books.show', compact('book'));
+        /* Rate Limiting - Limit Number of calls to this action during specific amount of time */
+        $executed = RateLimiter::attempt(
+            'review_'. $request->ip(),
+            $maxAttempts = 5,
+            function() use ($request, $book){
+                $data = $request->validate([
+                    'comment' => 'required',
+                    'rating' => 'required|min:1|max:5|integer',
+                ]);
+                $book->reviews()->create($data);
+            },
+            $decaySeconds = 3600, /*time to reset the attempts count */
+        );
+        
+        if ($executed){
+            return redirect()->route('books.show', compact('book'));
+        }
+        else{
+            return 'Too Many Request Sent! try  again after one hour.';
+        }
     }
 
     /**
